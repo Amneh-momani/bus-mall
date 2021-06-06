@@ -123,13 +123,14 @@ function handleUserClick(event) {
   } else {
     // // stop the clicking
     parent.removeEventListener('click', handleUserClick);
+    button.addEventListener('click', show);
 
   }
 
 }
 
-button.addEventListener('click', show);
 function show(event) {
+
   let list = document.getElementById('listResult');
   // button.append(list);
   for (let i = 0; i < Bus_mall.allpic.length; i++) {
@@ -139,4 +140,6 @@ function show(event) {
 
     picResult.textContent = `${Bus_mall.allpic[i].name} has ${Bus_mall.allpic[i].votes} votes and ${Bus_mall.allpic[i].show} shows`;
   }
+  button.removeEventListener('click', show);
+
 }
