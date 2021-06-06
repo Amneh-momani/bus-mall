@@ -1,0 +1,15 @@
+#images-parent{
+    margin-bottom: 20px;
+}
+#first-image ,#second-image ,#third-image{
+    width:30%;
+    height:300px;
+}
+
+button{
+    color: white;
+    background-color: brown;
+    font-size: 20px;
+    padding: 16px;
+
+}
