@@ -123,15 +123,15 @@ function handleUserClick(event) {
   } else {
     // // stop the clicking
     parent.removeEventListener('click', handleUserClick);
-    button.addEventListener('click', show);
 
   }
 
 }
 
+button.addEventListener('click', show);
 function show(event) {
-  let list = document.createElement('results');
-  button.append(list);
+  let list = document.getElementById('listResult');
+  // button.append(list);
   for (let i = 0; i < Bus_mall.allpic.length; i++) {
     let picResult = document.createElement('li');
 
