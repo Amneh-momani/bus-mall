@@ -19,17 +19,23 @@ let SecondImageIndex;
 let ThirdImageIndex;
 
 
-
+let imgNames = [];
+let votes = [];
+let shows = [];
+let imgArray = [];
 
 function Bus_mall(name, file) {
   this.name = name;
   this.file = file;
   this.votes = 0;
   this.show = 0;
-
+  imgNames.push(this.name);
+  // imgArray.push(imgNames);
   Bus_mall.allpic.push(this);
-}
+  // console.log(imgArray);
 
+}
+// console.log(imgArray);
 // will contain all of the pic that will be created
 
 Bus_mall.allpic = [];
@@ -68,12 +74,33 @@ function renderThreeImages() {
   SecondImageIndex = generateRandomIndex();
   ThirdImageIndex = generateRandomIndex();
 
+  // imgArray.push(FirstImageIndex);
+  // imgArray.push(SecondImageIndex);
+  // imgArray.push(ThirdImageIndex);
+  // console.log(imgArray);
 
-  while (FirstImageIndex === SecondImageIndex || SecondImageIndex === ThirdImageIndex || FirstImageIndex === ThirdImageIndex) {
-    SecondImageIndex = generateRandomIndex();
+  while (FirstImageIndex === SecondImageIndex || SecondImageIndex === ThirdImageIndex || FirstImageIndex === ThirdImageIndex
+    || FirstImageIndex in imgArray || SecondImageIndex in imgArray || ThirdImageIndex in imgArray) {
+      // FirstImageIndex = generateRandomIndex();
+      SecondImageIndex = generateRandomIndex();
     ThirdImageIndex = generateRandomIndex();
 
+    imgArray[0]=FirstImageIndex;
+    imgArray[0]=generateRandomIndex();
+    imgArray[1]=SecondImageIndex;
+    imgArray[1]=generateRandomIndex();
+    imgArray[2]=ThirdImageIndex;
+    imgArray[2]=generateRandomIndex();
+
+    imgArray = [];
+    imgArray.push(FirstImageIndex);
+    imgArray.push(SecondImageIndex);
+    imgArray.push(ThirdImageIndex);
+    console.log(imgArray);
+
+
   }
+
   // make the source for the first, second ,third image equal to the random pic source
 
   FirstImageElement.src = Bus_mall.allpic[FirstImageIndex].file;
@@ -85,8 +112,9 @@ function renderThreeImages() {
     Bus_mall.allpic[FirstImageIndex].show++;
     Bus_mall.allpic[SecondImageIndex].show++;
     Bus_mall.allpic[ThirdImageIndex].show++;
+
   }
-  console.log(Bus_mall.allpic[ThirdImageIndex].show);
+  // console.log(Bus_mall.allpic[ThirdImageIndex].show);
 
 }
 renderThreeImages();
@@ -100,7 +128,7 @@ parent.addEventListener('click', handleUserClick);
 function handleUserClick(event) {
   // adding attempts
   userAttemptsCounter++;
-  console.log(userAttemptsCounter);
+  // console.log(userAttemptsCounter);
 
   if (userAttemptsCounter <= maxAttempts) {
 
@@ -116,7 +144,7 @@ function handleUserClick(event) {
       Bus_mall.allpic[FirstImageIndex].votes++;
 
     }
-    console.log(Bus_mall.allpic);
+    // console.log(Bus_mall.allpic);
     renderThreeImages();
 
 
@@ -125,14 +153,22 @@ function handleUserClick(event) {
     parent.removeEventListener('click', handleUserClick);
     button.addEventListener('click', show);
 
+    for (let i = 0; i < Bus_mall.allpic.length; i++) {
+
+      votes.push(Bus_mall.allpic[i].votes);
+      shows.push(Bus_mall.allpic[i].show);
+    }
+
+    chart();
+
+
   }
 
 }
 
-function show(event) {
+function show() {
 
   let list = document.getElementById('listResult');
-  // button.append(list);
   for (let i = 0; i < Bus_mall.allpic.length; i++) {
     let picResult = document.createElement('li');
 
@@ -141,5 +177,67 @@ function show(event) {
     picResult.textContent = `${Bus_mall.allpic[i].name} has ${Bus_mall.allpic[i].votes} votes and ${Bus_mall.allpic[i].show} shows`;
   }
   button.removeEventListener('click', show);
+
+}
+
+
+function chart() {
+  let ctx = document.getElementById('myChart');
+  let myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: imgNames,
+      datasets: [{
+        label: '# of Votes',
+        data: votes,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      },
+      {
+        label: '# of Shows',
+        data: shows,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }
+      ]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
 
 }
