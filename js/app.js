@@ -18,11 +18,14 @@ let SecondImageIndex;
 // the random number index for the third image
 let ThirdImageIndex;
 
+let previusPicOne;
+let previusPicTow;
+let previusPicThree;
+
 
 let imgNames = [];
 let votes = [];
 let shows = [];
-let imgArray = [];
 
 function Bus_mall(name, file) {
   this.name = name;
@@ -32,10 +35,8 @@ function Bus_mall(name, file) {
   imgNames.push(this.name);
   // imgArray.push(imgNames);
   Bus_mall.allpic.push(this);
-  // console.log(imgArray);
 
 }
-// console.log(imgArray);
 // will contain all of the pic that will be created
 
 Bus_mall.allpic = [];
@@ -74,32 +75,18 @@ function renderThreeImages() {
   SecondImageIndex = generateRandomIndex();
   ThirdImageIndex = generateRandomIndex();
 
-  // imgArray.push(FirstImageIndex);
-  // imgArray.push(SecondImageIndex);
-  // imgArray.push(ThirdImageIndex);
-  // console.log(imgArray);
-
   while (FirstImageIndex === SecondImageIndex || SecondImageIndex === ThirdImageIndex || FirstImageIndex === ThirdImageIndex
-    || FirstImageIndex in imgArray || SecondImageIndex in imgArray || ThirdImageIndex in imgArray) {
-      // FirstImageIndex = generateRandomIndex();
-      SecondImageIndex = generateRandomIndex();
+    || FirstImageIndex === previusPicOne || FirstImageIndex === previusPicTow || FirstImageIndex === previusPicThree
+    || SecondImageIndex === previusPicOne || SecondImageIndex === previusPicTow || SecondImageIndex === previusPicThree
+    || ThirdImageIndex === previusPicOne || ThirdImageIndex === previusPicTow || ThirdImageIndex === previusPicThree) {
+    FirstImageIndex = generateRandomIndex();
+    SecondImageIndex = generateRandomIndex();
     ThirdImageIndex = generateRandomIndex();
 
-    imgArray[0]=FirstImageIndex;
-    imgArray[0]=generateRandomIndex();
-    imgArray[1]=SecondImageIndex;
-    imgArray[1]=generateRandomIndex();
-    imgArray[2]=ThirdImageIndex;
-    imgArray[2]=generateRandomIndex();
-
-    imgArray = [];
-    imgArray.push(FirstImageIndex);
-    imgArray.push(SecondImageIndex);
-    imgArray.push(ThirdImageIndex);
-    console.log(imgArray);
-
-
   }
+  previusPicOne = FirstImageIndex;
+  previusPicTow = SecondImageIndex;
+  previusPicThree = ThirdImageIndex;
 
   // make the source for the first, second ,third image equal to the random pic source
 
