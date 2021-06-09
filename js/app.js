@@ -35,7 +35,6 @@ function Bus_mall(name, file) {
   imgNames.push(this.name);
   Bus_mall.allpic.push(this);
 
-  updateStorage();
 }
 // will contain all of the pic that will be created
 
@@ -56,38 +55,11 @@ function getImages() {
 
   // convert them back to a normal array of objects
   let ImageData = JSON.parse(data);
-
-  for (let i = 0; 0 < ImageData.length; i++) {
-    new Bus_mall(ImageData[i].name, ImageData[i].file);
-  }
-  if (ImageData !== null) {
+  if(ImageData){
     Bus_mall.allpic = ImageData;
-  }else {
-    new Bus_mall('bag', 'img/bag.jpg');
-    new Bus_mall('banana', 'img/banana.jpg');
-    new Bus_mall('bathroom', 'img/bathroom.jpg');
-    new Bus_mall('boots', 'img/boots.jpg');
-    new Bus_mall('breakfast', 'img/breakfast.jpg');
-    new Bus_mall('bubblegum', 'img/bubblegum.jpg');
-    new Bus_mall('chair', 'img/chair.jpg');
-    new Bus_mall('cthulhu', 'img/cthulhu.jpg');
-    new Bus_mall('dog-duck', 'img/dog-duck.jpg');
-    new Bus_mall('dragon', 'img/dragon.jpg');
-    new Bus_mall('pen', 'img/pen.jpg');
-    new Bus_mall('pet-sweep', 'img/pet-sweep.jpg');
-    new Bus_mall('scissors', 'img/scissors.jpg');
-    new Bus_mall('shark', 'img/shark.jpg');
-    new Bus_mall('sweep', 'img/sweep.png');
-    new Bus_mall('tauntaun', 'img/tauntaun.jpg');
-    new Bus_mall('unicorn', 'img/unicorn.jpg');
-    new Bus_mall('usb', 'img/usb.gif');
-    new Bus_mall('water-can', 'img/water-can.jpg');
-    new Bus_mall('wine-glass', 'img/wine-glass.jpg');
+
   }
 
-  renderThreeImages();
-
-  parent.addEventListener('click', handleUserClick);
 }
 
 
@@ -194,7 +166,7 @@ function handleUserClick(event) {
       votes.push(Bus_mall.allpic[i].votes);
       shows.push(Bus_mall.allpic[i].show);
     }
-
+    updateStorage();
     chart();
 
 
@@ -278,4 +250,3 @@ function chart() {
 
 }
 getImages();
-console.log(Bus_mall.allpic);
